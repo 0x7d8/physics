@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div id="container" style="position: absolute; left: 0; top: 0;"></div>
-	<div style="position: absolute; left: 0; top: 0; z-index: 1;">
+	<div style="position: absolute; left: 0; top: 0; z-index: 1; gap: 4px; display: grid;">
 		<button onclick="clearBodies()">Clear</button>
 		<button onclick="exportJson()">Export</button>
 		<button onclick="importJson()">Import</button>
@@ -25,6 +25,7 @@
 		<input type="number" id="mass" value="1">
 		<input type="range" id="size" value="50" min="10" max="1000">
 	</div>
+	<p id="performance" style="position: absolute; right: 16px; top: 0; z-index: 1; color: white; white-space: nowrap;"></p>
 </body>
 <!-- disable scrolling -->
 <style>

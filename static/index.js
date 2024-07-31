@@ -41,6 +41,8 @@ const render = Render.create({
 
 	bodies.splice(bodies.indexOf(body), 1)
 	Composite.remove(engine.world, body)
+
+	removedBodies++
 }
 
 const mouse = Mouse.create(render.canvas),
@@ -73,8 +75,10 @@ window.addEventListener('resize', () => {
 Composite.add(engine.world, ground)
 Render.run(render)
 
+let ticksLastSecond = 0, ticks = 0, removedBodies = 0
 setInterval(() => {
 	Engine.update(engine, 1000 / 60)
+	ticks++
 
 	for (const body of bodies) {
 		if (body.position.y > window.innerHeight || body.position.x < 0 || body.position.x > window.innerWidth) {
@@ -82,6 +86,15 @@ setInterval(() => {
 		}
 	}
 }, 1000 / 240)
+
+setInterval(() => {
+	ticksLastSecond = ticks
+	ticks = 0
+
+	document.getElementById('performance').innerText = `TPS: ${ticksLastSecond} / 240 (${Math.round(ticksLastSecond / 240 * 100)}%)\nBodies: ${bodies.length}, Removed ${removedBodies}`
+}, 1000)
+
+document.getElementById('performance').innerText = `TPS: ${ticksLastSecond} / 240 (${Math.round(ticksLastSecond / 240 * 100)}%)\nBodies: ${bodies.length}, Removed 0`
 
 function createBodyAtMouseUsingEvent(e) {
 	const shape = document.getElementById('shape').value,
