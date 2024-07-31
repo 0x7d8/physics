@@ -134,9 +134,10 @@ let isMouseDown = false
 document.addEventListener('mousedown', () => isMouseDown = true)
 document.addEventListener('mouseup', () => isMouseDown = false)
 document.addEventListener('mousemove', e => {
-	if (isMouseDown) {
-		createBodyAtMouseUsingEvent(e)
-	}
+	if (!isMouseDown) return
+	if (e.buttons !== 2) return
+
+	createBodyAtMouseUsingEvent(e)
 })
 
 function clearBodies() {
