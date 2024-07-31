@@ -71,17 +71,17 @@ window.addEventListener('resize', () => {
 })
 
 Composite.add(engine.world, ground)
-Render.run(render);
-(function run() {
-	window.requestAnimationFrame(run)
-	Engine.update(engine, 1000 / 60)
+Render.run(render)
+
+setInterval(() => {
+	Engine.update(engine, 1000 / 240)
 
 	for (const body of bodies) {
 		if (body.position.y > window.innerHeight || body.position.x < 0 || body.position.x > window.innerWidth) {
 			removeBody(body)
 		}
 	}
-})()
+}, 1000 / 240)
 
 function createBodyAtMouseUsingEvent(e) {
 	const shape = document.getElementById('shape').value,
