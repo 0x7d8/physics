@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script defer src="/index.js"></script>
+	<script src="matter.js"></script>
+	<title>Physics</title>
+</head>
+<body>
+	<div id="container" style="position: absolute; left: 0; top: 0;"></div>
+	<div style="position: absolute; left: 0; top: 0; z-index: 1;">
+		<button onclick="clearBodies()">Clear</button>
+		<button onclick="exportJson()">Export</button>
+		<button onclick="importJson()">Import</button>
+		<select id="shape">
+			<option value="circle">Circle</option>
+			<option value="rectangle">Rectangle</option>
+			<option value="triangle">Triangle</option>
+		</select>
+		<select id="mode">
+			<option value="dynamic">Dynamic</option>
+			<option value="static">Static</option>
+		</select>
+		<input type="number" id="mass" value="1">
+		<input type="range" id="size" value="50" min="10" max="1000">
+	</div>
+</body>
+<!-- disable scrolling -->
+<style>
+	body {
+		overflow: hidden;
+	}
+</style>
+</html>
