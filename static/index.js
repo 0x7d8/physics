@@ -4,7 +4,8 @@ const Engine = Matter.Engine,
 	Bodies = Matter.Bodies,
 	Composite = Matter.Composite,
 	Mouse = Matter.Mouse,
-	MouseConstraint = Matter.MouseConstraint
+	MouseConstraint = Matter.MouseConstraint,
+	Events = Matter.Events
 
 const engine = Engine.create()
 const render = Render.create({
@@ -19,6 +20,19 @@ const render = Render.create({
 	}, engine
 })
 
+let playingAudios = 0
+
+Events.on(engine, 'collisionStart', () => {
+	if (!document.getElementById('audio').checked) return
+
+	if (playingAudios >= 3) return
+	playingAudios++
+
+	const audio = new Audio('/collision.mp3')
+	audio.volume = 0.1
+	audio.play().then(() => playingAudios--)
+})
+
 /**
  * @type {Matter.Body[]} bodies
 */ const bodies = []
@@ -30,6 +44,8 @@ const render = Render.create({
 */ function addBody(body) {
 	bodies.push(body)
 	Composite.add(engine.world, body)
+
+	body.restitution = 0.5
 }
 
 /**
@@ -224,6 +240,7 @@ function importJson() {
 				newBody.mass = body.mass
 				newBody.isStatic = body.isStatic
 				newBody.render.fillStyle = body.render.fillStyle
+				newBody.label = JSON.stringify({ type: body.type, size: body.size })
 
 				addBody(newBody)
 			}
