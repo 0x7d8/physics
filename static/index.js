@@ -74,7 +74,7 @@ Composite.add(engine.world, ground)
 Render.run(render)
 
 setInterval(() => {
-	Engine.update(engine, 1000 / 240)
+	Engine.update(engine, 1000 / 60)
 
 	for (const body of bodies) {
 		if (body.position.y > window.innerHeight || body.position.x < 0 || body.position.x > window.innerWidth) {
